@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ViewChild, ElementRef, AfterViewInit} from '@angular/core';
 import {User} from './models/user.model';
 
 @Component({
@@ -6,10 +6,10 @@ import {User} from './models/user.model';
   templateUrl: 'app.component.html',
   styles: []
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit{
   users: User[];
   selected: string;
-
+  @ViewChild('h1') myElem: ElementRef;
   constructor() {
     this.users = [
       new User(1, 'Lee', 'Administrator'),
@@ -18,6 +18,11 @@ export class AppComponent {
     ];
     this.selected = 'Developer';
   }
+
+  ngAfterViewInit(): void {
+        console.log(this.myElem.nativeElement.outerHTML);
+        this.myElem.nativeElement.style.color = 'black';
+    }
 
   addUser(name: string, role: string): void {
     if (name && role) {
