@@ -33,5 +33,6 @@ export class UserListComponent  {
     return this._users;
   }
 // custom event handler를 remove라고 이를 emit해서 event Handler를 parent로 전달!
+  // stateless는 child이고 stateful(state를 변경하고 server와 통신하는)것은 parent!
   @Output() remove = new EventEmitter<User>();
 }
