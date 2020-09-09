@@ -1,5 +1,6 @@
 import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
 import {User} from './models/user.model';
+import {COUNTRY} from './const/country.const';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,10 @@ import {User} from './models/user.model';
 export class AppComponent implements AfterViewInit {
   users: User[];
   selected: string;
-  lastIdx: number ;
+  lastIdx: number;
+  country: any;
+  countryName: string;
+  countryIdx: number;
   @ViewChild('h1') myElem: ElementRef;
 
   constructor() {
@@ -20,11 +24,16 @@ export class AppComponent implements AfterViewInit {
     ];
     this.selected = 'Developer';
     this.lastIdx = this.users.length;
+    this.country = COUNTRY.international;
+    this.countryName = 'United States';
+    this.countryName = 'United Kingdom';
+    this.countryIdx = 221;
   }
 
   ngAfterViewInit(): void {
     console.log(this.myElem.nativeElement.outerHTML);
     this.myElem.nativeElement.style.color = 'black';
+
   }
 
   addUser(name: string, role: string): void {
@@ -46,5 +55,11 @@ export class AppComponent implements AfterViewInit {
   // child에게서 받은 custom event handler로 호출 된 removeUser를 사용해서 business logic을 수행!
   removeUser(target: User): void {
     this.users = this.users.filter(({id}) => id !== target.id);
+  }
+
+  findState($event): void {
+    this.countryName = $event.target.value
+    console.log(this.countryName);
+    $event.stopPropagation();
   }
 }

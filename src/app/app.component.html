@@ -11,11 +11,18 @@
           <option value="Developer">Developer</option>
           <option value="Designer">Designer</option>
         </select>
-        <button type="button" class="btn btn-default"(click)="addUser(name.value,role.value)">Add User</button>
+        <button type="button" class="btn btn-default" (click)="addUser(name.value,role.value)">Add User</button>
       </div>
       <!--(remove)라는 custom event handler를 정의했다. 해당 event가 오면 removeUser($event) 호출 -->
-      <app-user-list [users]="users"(remove)="removeUser($event)"></app-user-list>
+      <app-user-list [users]="users" (remove)="removeUser($event)"></app-user-list>
     </div>
   </div>
 </div>
+<!-- [(ngModel)]로 양방향 binding한 뒤 option안에서의 innerHtml로 찾아 간다. 이때 option의 value attribute가 없어도 된다.
+만약 option의 value attribute를 넣고자 한다면 아래처럼 value={{con.CountryName}}을 활용하면 된다.-->
+<select [(ngModel)]="countryName" (change)="findState($event)">
+  <option *ngFor="let con of country; let i=index" value="{{con.CountryName}}">
+    {{con.CountryName}}
+  </option>
+</select>
 
